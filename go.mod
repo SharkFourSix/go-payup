@@ -1,4 +1,4 @@
-module sharkfoursix/go-payup
+module github.com/sharkfoursix/go-payup
 
 go 1.21.5
 

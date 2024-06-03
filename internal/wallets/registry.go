@@ -2,7 +2,7 @@
 package wallets
 
 import (
-	"sharkfoursix/go-payup/pkg"
+	"github.com/sharkfoursix/go-payup/pkg"
 
 	"github.com/pkg/errors"
 )

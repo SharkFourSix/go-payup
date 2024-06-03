@@ -1,9 +1,9 @@
 package gopayup
 
 import (
-	"sharkfoursix/go-payup/internal/ledgers"
-	"sharkfoursix/go-payup/internal/wallets"
-	"sharkfoursix/go-payup/pkg"
+	"github.com/sharkfoursix/go-payup/internal/ledgers"
+	"github.com/sharkfoursix/go-payup/internal/wallets"
+	"github.com/sharkfoursix/go-payup/pkg"
 )
 
 func NewMobileWallet(name, dsn string) (pkg.MobileWallet, error) {

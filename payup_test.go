@@ -1,8 +1,8 @@
 package gopayup_test
 
 import (
-	gopayup "sharkfoursix/go-payup"
-	"sharkfoursix/go-payup/pkg"
+	gopayup "github.com/sharkfoursix/go-payup"
+	"github.com/sharkfoursix/go-payup/pkg"
 	"testing"
 )
 
