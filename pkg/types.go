@@ -18,6 +18,12 @@ const (
 )
 
 var (
+	// Transaction not found
+	ErrTransactionNotFound = errors.New("transaction not found")
+
+	// Payment not found
+	ErrPaymentNotFound = errors.New("payment not found")
+
 	int2PaymentStatusMap map[int]PaymentStatus = map[int]PaymentStatus{
 		0: PS_NOT_PAID,
 		1: PS_PAID,
@@ -79,22 +85,37 @@ type Payment struct {
 }
 
 type Transaction interface {
+	// Transaction ID by the provider/MNO
 	ID() string
+	// Transaction ID initially specified by the merchant/caller
 	RefID() string
+	// Amount
 	Amount() float64
+	// Time the transaction was created. Optional, as some providers may not include this detail
 	CreatedAt() *time.Time
 }
 
 type MobileWallet interface {
-	// Verifies the
+	// Returns transaction details from an MNO.
+	//
+	// Whether the id is the one created by the merchant or MNO is up to the implementing function.
+	//
+	// If the function is successful, err will be nil and Transaction will contain transaction details.
+	//
+	// If the function fails, err will contain an error, and transaction will be nil. In case the transaction
+	// was not found, `ErrTransactionNotFound` will be returned.
 	VerifyTransaction(ctx context.Context, id string) (Transaction, error)
 }
 
 type Ledger interface {
 	// Create a payment record
 	//
-	// 	msisdn - Number that will be making this payment
-	// 	amount - The payment figure
+	// 	msisdn
+	// Number that will be making this payment
+	// 	amount
+	// The payment amount
+	//
+	// The currency will be decided by the wallet implementation
 	CreatePayment(ctx context.Context, msisdn string, amount float64) (*Payment, error)
 
 	// Updates a payment record
