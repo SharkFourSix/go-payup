@@ -23,6 +23,7 @@ const (
 	TS_PENDING TransactionStatus = iota
 	TS_SUCCESS
 	TS_FAILED
+	TS_EXPIRED
 )
 
 var (
