@@ -17,6 +17,14 @@ const (
 	PS_ERROR                         // There was an error paying the payment on the provider's side
 )
 
+type TransactionStatus int
+
+const (
+	TS_PENDING TransactionStatus = iota
+	TS_SUCCESS
+	TS_FAILED
+)
+
 var (
 	// Transaction not found
 	ErrTransactionNotFound = errors.New("transaction not found")
@@ -85,10 +93,12 @@ type Payment struct {
 }
 
 type Transaction interface {
-	// Transaction ID by the provider/MNO
+	// Transaction ID by the provider
 	ID() string
 	// Transaction ID initially specified by the merchant/caller
 	RefID() string
+	// Returns transaction status, as reported by the provider
+	Status() TransactionStatus
 	// Amount
 	Amount() float64
 	// Time the transaction was created. Optional, as some providers may not include this detail
